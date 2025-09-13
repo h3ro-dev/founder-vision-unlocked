@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        'playfair': ['Playfair Display', 'Georgia', 'serif'],
+        'inter': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +61,11 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Brand colors
+        'midnight-blue': 'hsl(var(--midnight-blue))',
+        'deep-purple': 'hsl(var(--deep-purple))',
+        'premium-purple': 'hsl(var(--premium-purple))',
+        'light-purple': 'hsl(var(--light-purple))',
       },
       borderRadius: {
         lg: "var(--radius)",
