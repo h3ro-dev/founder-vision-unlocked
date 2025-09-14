@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { submitLead } from "@/lib/lead";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { useToast } from "@/hooks/use-toast";
+import { submitLead } from "@/lib/lead";
 
 const ConversionForm = () => {
   const { toast } = useToast();
@@ -22,12 +24,13 @@ const ConversionForm = () => {
     successVision: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would integrate with Supabase or your preferred backend
+    const { ok, error } = await submitLead(formData as any);
     toast({
-      title: "Architecture Session Requested!",
-      description: "We'll contact you within 24 hours to schedule your company vision consultation.",
+      title: ok ? "Architecture Session Requested!" : "Submission failed",
+      description: ok ? "We'll contact you within 24 hours to schedule your company vision consultation." : (error || "Please try again."),
+      ...(ok ? {} : { variant: "destructive" as const }),
     });
   };
 
