@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { notifyLead, utmFromLocation } from "@/lib/notifyLead";
 import { Button } from "@/components/ui/button";
 import { submitLead } from "@/lib/lead";
 import { Input } from "@/components/ui/input";
@@ -27,6 +28,15 @@ const ConversionForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const { ok, error } = await submitLead(formData as any);
+    if (ok) {
+      try {
+        const page_url = typeof window !== 'undefined' ? window.location.href : '';
+        const payload = { ...(formData as any), page_url, ...utmFromLocation() };
+        notifyLead('contact', payload);
+      } catch (e) {
+        console.warn('notifyLead skipped', e);
+      }
+    }
     toast({
       title: ok ? "Architecture Session Requested!" : "Submission failed",
       description: ok ? "We'll contact you within 24 hours to schedule your company vision consultation." : (error || "Please try again."),
