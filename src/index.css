@@ -149,4 +149,8 @@ All colors MUST be HSL.
   .smooth-bounce {
     transition: var(--transition-bounce);
   }
+  
+  #lovable-badge {
+    display: none !important;
+  }
 }
